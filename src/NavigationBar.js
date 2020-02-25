@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './NavigationBar.css'
 import {
   Button,
   Collapse,
@@ -15,15 +16,15 @@ import {
   NavbarText
 } from 'reactstrap';
 
-const Example = (props) => {
+const Navigation = (props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
 
   return (
     <div>
-      <Navbar color="light" light expand="md">
-        <NavbarBrand href="/">My board</NavbarBrand>
+      <Navbar className="NavigationBar" light expand="md">
+        <NavbarBrand href="/">My Board</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
@@ -31,7 +32,7 @@ const Example = (props) => {
               <Button color="link">Join</Button>{''}
             </NavItem>
             <NavItem>
-              <Button color="link">login</Button>{''}            
+              <Button color="link">Login</Button>{''}            
             </NavItem>
           </Nav>
           <NavbarText>user name</NavbarText>
@@ -41,4 +42,4 @@ const Example = (props) => {
   );
 }
 
-export default Example;
+export default Navigation;

@@ -1,10 +1,11 @@
 import React from 'react';
-import Example from './NavigationBar';
-
+import Navigation from './NavigationBar';
+import Add from './Add'
 function App() {
   return (
    <div>
-     <Example></Example>
+     <Navigation></Navigation>
+     <Add></Add>
    </div>
   );
 }
