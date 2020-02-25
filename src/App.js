@@ -1,9 +1,11 @@
 import React from 'react';
-
+import Example from './NavigationBar';
 
 function App() {
   return (
-   <div>hello</div>
+   <div>
+     <Example></Example>
+   </div>
   );
 }
 
