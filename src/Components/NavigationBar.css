@@ -1,3 +1,10 @@
 .NavigationBar{
+    z-index: 1;
     background-color: #f3f3f3;
+    position: fixed; top: 0; width: 100%;
+}
+
+.Search {
+    padding: 0;
+    margin: 0;
 }

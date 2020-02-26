@@ -30,12 +30,12 @@ const Add = (props) => {
         <ModalBody>
           <Form>
             <FormGroup>
-              <Label for="inputTitle">Title</Label>
+              <Label for="inputTitle">Word</Label>
               <Input type="title" name="text" id="inputTitle" />
             </FormGroup>
             <FormGroup>
               <Label for="inputContent">Content</Label>
-              <Input rows="12" className="contentText" type="textarea" name="text" id="inputContent"/>
+              <Input rows="8" className="contentText" type="textarea" name="text" id="inputContent"/>
             </FormGroup>
           </Form>
         </ModalBody>

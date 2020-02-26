@@ -8,12 +8,9 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  NavbarText
+  NavbarText,
+  FormGroup,
+  Input
 } from 'reactstrap';
 
 const Navigation = (props) => {
@@ -32,10 +29,17 @@ const Navigation = (props) => {
               <Button color="link">Join</Button>{''}
             </NavItem>
             <NavItem>
-              <Button color="link">Login</Button>{''}            
+              <Button color="link">Login</Button>{''}
             </NavItem>
           </Nav>
-          <NavbarText>user name</NavbarText>
+          <NavbarText className="Search" >
+            <Input
+              type="search"
+              name="search"
+              id="exampleSearch"
+              placeholder="Search"
+            />
+          </NavbarText>
         </Collapse>
       </Navbar>
     </div>
