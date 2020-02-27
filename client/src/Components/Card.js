@@ -33,7 +33,7 @@ class Example extends React.Component {
           </Card>
           <Modal isOpen={this.state.modal} toggle={this.toggle} >
             <ModalHeader toggle={this.toggle}>{this.props.word}</ModalHeader>
-            <ModalBody rows="12">{this.props.content}</ModalBody>
+            <ModalBody >{this.props.meaning}</ModalBody>
             <ModalFooter>
               좋아요 기능 만들기
             </ModalFooter>

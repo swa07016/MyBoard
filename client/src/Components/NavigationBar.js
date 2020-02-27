@@ -9,41 +9,57 @@ import {
   Nav,
   NavItem,
   NavbarText,
-  FormGroup,
-  Input
+  Input,
+  Label,
+  Modal, ModalHeader, ModalBody, ModalFooter
 } from 'reactstrap';
 
-const Navigation = (props) => {
-  const [isOpen, setIsOpen] = useState(false);
 
-  const toggle = () => setIsOpen(!isOpen);
 
-  return (
-    <div>
-      <Navbar className="NavigationBar" light expand="md">
-        <NavbarBrand href="/">My Board</NavbarBrand>
-        <NavbarToggler onClick={toggle} />
-        <Collapse isOpen={isOpen} navbar>
-          <Nav className="mr-auto" navbar>
-            <NavItem>
-              <Button color="link">Join</Button>{''}
-            </NavItem>
-            <NavItem>
-              <Button color="link">Login</Button>{''}
-            </NavItem>
-          </Nav>
-          <NavbarText className="Search" >
-            <Input
-              type="search"
-              name="search"
-              id="exampleSearch"
-              placeholder="Search"
-            />
-          </NavbarText>
-        </Collapse>
-      </Navbar>
-    </div>
-  );
+class Navigation extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      isOpen: false,
+    }
+    this.toggle = this.toggle.bind(this);
+  }
+
+  toggle = () => this.setState({ isOpen: !this.state.isOpen});
+
+  render() {
+    return (
+      <div>
+        <Navbar className="NavigationBar" light expand="md">
+          <NavbarBrand href="/">My Board</NavbarBrand>
+          <NavbarToggler onClick={this.toggle} />
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav className="mr-auto" navbar>
+              
+             
+                
+
+              <NavItem>
+                <Button color="link">Logout</Button>{''}
+              </NavItem>
+
+
+            </Nav>
+            <NavbarText className="Search" >
+              <Input
+                type="search"
+                name="search"
+                id="exampleSearch"
+                placeholder="Search"
+              />
+            </NavbarText>
+          </Collapse>
+        </Navbar>
+      </div>
+    );
+  }
+
 }
 
 export default Navigation;

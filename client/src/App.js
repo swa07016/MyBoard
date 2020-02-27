@@ -1,140 +1,65 @@
 import React from 'react';
 import Navigation from './Components/NavigationBar';
 import Add from './Components/Add';
+import Login from './Components/Login';
 import Footer from './Components/Footer';
 import Card from './Components/Card';
 import './App.css';
-import { Row } from 'reactstrap';
+import { Row, Spinner } from 'reactstrap';
 class App extends React.Component {
+  
+  constructor(props) {
+    super(props);
+    this.state = {
+      cards: '',
+      userName: '',
+      isLogin: false
+    }
+  }
+
+
+  componentDidMount() {
+    this.callApi()
+    .then(res => this.setState({cards: res}))
+    .catch(err => console.log(err))
+  }
+
+  callApi = async () => {
+    const response = await fetch('/api/cards');
+    const body = await response.json();
+    return body;
+  }
+
   render() {
     return (
+       this.state.isLogin ? 
       <div className="WholePage">
         <div className="NavArea">
           <Navigation></Navigation>
         </div>
         <Row className="CardArea">
-          <Card
-            word="Hello world"
-            writer="정성훈"
-            date="2020/02/26"
-            Likes="3"
-            content="Allow me to introduce myself. My name is seonghoon. I live in cheonan. I like basketball. My major is computer engineering"
+        {this.state.cards ? this.state.cards.map((c, index) => {
+          return <Card
+                key={index}
+                word= {c.word}
+                writer = {c.writer}
+                date = {c.date}
+                Likes = {c.Likes}
+                meaning = {c.meaning}
           />
-          <Card
-            word="Hello world"
-            writer="정성훈"
-            date="2020/02/26"
-            Likes="3"
-            content="Allow me to introduce myself. My name is seonghoon. I live in cheonan. I like basketball. My major is computer engineering"
-          /><Card
-            word="Hello world"
-            writer="정성훈"
-            date="2020/02/26"
-            Likes="3"
-            content="Allow me to introduce myself. My name is seonghoon. I live in cheonan. I like basketball. My major is computer engineering"
-          /><Card
-            word="Hello world"
-            writer="정성훈"
-            date="2020/02/26"
-            Likes="3"
-            content="Allow me to introduce myself. My name is seonghoon. I live in cheonan. I like basketball. My major is computer engineering"
-          /><Card
-            word="Hello world"
-            writer="정성훈"
-            date="2020/02/26"
-            Likes="3"
-            content="Allow me to introduce myself. My name is seonghoon. I live in cheonan. I like basketball. My major is computer engineering"
-          /><Card
-            word="Hello world"
-            writer="정성훈"
-            date="2020/02/26"
-            Likes="3"
-            content="Allow me to introduce myself. My name is seonghoon. I live in cheonan. I like basketball. My major is computer engineering"
-          /><Card
-            word="Hello world"
-            writer="정성훈"
-            date="2020/02/26"
-            Likes="3"
-            content="Allow me to introduce myself. My name is seonghoon. I live in cheonan. I like basketball. My major is computer engineering"
-          /><Card
-            word="Hello world"
-            writer="정성훈"
-            date="2020/02/26"
-            Likes="3"
-            content="Allow me to introduce myself. My name is seonghoon. I live in cheonan. I like basketball. My major is computer engineering"
-          /><Card
-            word="Hello world"
-            writer="정성훈"
-            date="2020/02/26"
-            Likes="3"
-            content="Allow me to introduce myself. My name is seonghoon. I live in cheonan. I like basketball. My major is computer engineering"
-          /><Card
-            word="Hello world"
-            writer="정성훈"
-            date="2020/02/26"
-            Likes="3"
-            content="Allow me to introduce myself. My name is seonghoon. I live in cheonan. I like basketball. My major is computer engineering"
-          /><Card
-            word="Hello world"
-            writer="정성훈"
-            date="2020/02/26"
-            Likes="3"
-            content="Allow me to introduce myself. My name is seonghoon. I live in cheonan. I like basketball. My major is computer engineering"
-          /><Card
-            word="Hello world"
-            writer="정성훈"
-            date="2020/02/26"
-            Likes="3"
-            content="Allow me to introduce myself. My name is seonghoon. I live in cheonan. I like basketball. My major is computer engineering"
-          /><Card
-            word="Hello world"
-            writer="정성훈"
-            date="2020/02/26"
-            Likes="3"
-            content="Allow me to introduce myself. My name is seonghoon. I live in cheonan. I like basketball. My major is computer engineering"
-          /><Card
-            word="Hello world"
-            writer="정성훈"
-            date="2020/02/26"
-            Likes="3"
-            content="Allow me to introduce myself. My name is seonghoon. I live in cheonan. I like basketball. My major is computer engineering"
-          /><Card
-            word="Hello world"
-            writer="정성훈"
-            date="2020/02/26"
-            Likes="3"
-            content="Allow me to introduce myself. My name is seonghoon. I live in cheonan. I like basketball. My major is computer engineering"
-          /><Card
-            word="Hello world"
-            writer="정성훈"
-            date="2020/02/26"
-            Likes="3"
-            content="Allow me to introduce myself. My name is seonghoon. I live in cheonan. I like basketball. My major is computer engineering"
-          /><Card
-            word="Hello world"
-            writer="정성훈"
-            date="2020/02/26"
-            Likes="3"
-            content="Allow me to introduce myself. My name is seonghoon. I live in cheonan. I like basketball. My major is computer engineering"
-          /><Card
-            word="Hello world"
-            writer="정성훈"
-            date="2020/02/26"
-            Likes="3"
-            content="Allow me to introduce myself. My name is seonghoon. I live in cheonan. I like basketball. My major is computer engineering"
-          /><Card
-            word="Hello world"
-            writer="정성훈"
-            date="2020/02/26"
-            Likes="3"
-            content="Allow me to introduce myself. My name is seonghoon. I live in cheonan. I like basketball. My major is computer engineering"
-          />
+        }) : <Spinner className="spinner" color="primary" />}
         </Row>
         <Add></Add>
         <div className="FooterArea">
           <Footer className="NavFix"></Footer>
         </div>
+      </div> :
+      <div>
+
+        <Login></Login>
+
       </div>
+      
 
     );
   }

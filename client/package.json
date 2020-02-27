@@ -35,5 +35,6 @@
   },
   "main": "index.js",
   "author": "swa07016 <swa07016@naver.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "proxy": "http://localhost:5000/"
 }
