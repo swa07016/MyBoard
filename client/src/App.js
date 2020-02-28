@@ -30,17 +30,21 @@ class App extends React.Component {
     return body;
   }
 
+ isLoginChange = (name) => {
+    this.setState({cards:this.state.cards, userName:name, isLogin:!this.state.isLogin});
+  }
+
   render() {
     return (
        this.state.isLogin ? 
       <div className="WholePage">
         <div className="NavArea">
-          <Navigation></Navigation>
+          <Navigation isLoginChange={this.isLoginChange}></Navigation>
         </div>
         <Row className="CardArea">
         {this.state.cards ? this.state.cards.map((c, index) => {
           return <Card
-                key={index}
+                key={c.id}
                 word= {c.word}
                 writer = {c.writer}
                 date = {c.date}
@@ -56,7 +60,7 @@ class App extends React.Component {
       </div> :
       <div>
 
-        <Login></Login>
+        <Login isLoginChange={this.isLoginChange}></Login>
 
       </div>
       

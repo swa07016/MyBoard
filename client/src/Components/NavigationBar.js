@@ -41,7 +41,7 @@ class Navigation extends React.Component {
                 
 
               <NavItem>
-                <Button color="link">Logout</Button>{''}
+                <Button color="link" onClick={this.props.isLoginChange}>Logout</Button>{''}
               </NavItem>
 
 
