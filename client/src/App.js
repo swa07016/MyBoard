@@ -17,12 +17,31 @@ class App extends React.Component {
     }
   }
 
+  getCookie = (name) => {
+    var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+    return value? value[2] : null;
+  }
+
+  componentWillMount() {
+    const cookie = this.getCookie('userCookie');
+    console.log(cookie);
+    if(cookie) {
+      this.setState({isLogin:true});
+    } 
+  }
+
+  deleteCookie = (name) => {
+    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  }
 
   componentDidMount() {
+    //console.log(this.getCookie('userCookie'));
     this.callApi()
     .then(res => this.setState({cards: res}))
     .catch(err => console.log(err))
   }
+
+
 
   callApi = async () => {
     const response = await fetch('/api/cards');
@@ -34,12 +53,27 @@ class App extends React.Component {
     this.setState({cards:this.state.cards, userName:name, isLogin:!this.state.isLogin});
   }
 
+  LogoutHandler = () => {
+    console.log('gkgg');
+    this.deleteCookie('userCookie');
+    this.setState({isLogin:false});
+  }
+
+  addHandler = (name) => {
+    this.setState({cards:this.state.cards, userName:name, isLogin:this.state.isLogin});
+    console.log(name, this.state.isLogin);
+    this.callApi()
+    .then(res => this.setState({cards: res}))
+    .catch(err => console.log(err));
+  }
+
+
   render() {
     return (
        this.state.isLogin ? 
       <div className="WholePage">
         <div className="NavArea">
-          <Navigation isLoginChange={this.isLoginChange}></Navigation>
+          <Navigation LogoutHandler={this.LogoutHandler}></Navigation>
         </div>
         <Row className="CardArea">
         {this.state.cards ? this.state.cards.map((c, index) => {
@@ -53,7 +87,7 @@ class App extends React.Component {
           />
         }) : <Spinner className="spinner" color="primary" />}
         </Row>
-        <Add></Add>
+        <Add writer={this.state.userName} addHandler={this.addHandler}></Add>
         <div className="FooterArea">
           <Footer className="NavFix"></Footer>
         </div>
