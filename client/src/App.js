@@ -13,7 +13,8 @@ class App extends React.Component {
     this.state = {
       cards: '',
       userName: '',
-      isLogin: false
+      isLogin: false,
+      searchKeyword: ''
     }
   }
 
@@ -24,9 +25,9 @@ class App extends React.Component {
 
   componentWillMount() {
     const cookie = this.getCookie('userCookie');
-    console.log(cookie);
-    if(cookie) {
+    if(cookie) {  
       this.setState({isLogin:true});
+      this.setState({userName: decodeURI(this.getCookie('userNameCookie'))});
     } 
   }
 
@@ -35,13 +36,10 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    //console.log(this.getCookie('userCookie'));
     this.callApi()
     .then(res => this.setState({cards: res}))
     .catch(err => console.log(err))
   }
-
-
 
   callApi = async () => {
     const response = await fetch('/api/cards');
@@ -56,7 +54,9 @@ class App extends React.Component {
   LogoutHandler = () => {
     console.log('gkgg');
     this.deleteCookie('userCookie');
+    this.deleteCookie('userNameCookie');
     this.setState({isLogin:false});
+    this.setState({userName: ''});
   }
 
   addHandler = (name) => {
@@ -67,25 +67,45 @@ class App extends React.Component {
     .catch(err => console.log(err));
   }
 
+  handleValueChange = (e) => {
+    let nextState = {};
+    nextState[e.target.name] = e.target.value;
+    this.setState(nextState);
+    }
+    
+    filteredComponents = (data) => {
+      data = data.filter((c) => {
+      return c.word.indexOf(this.state.searchKeyword) > -1;
+      });
+      return data.reverse().map((c, index) => {
+        return <Card
+              key={c.id}
+              word= {c.word}
+              writer = {c.writer}
+              date = {c.date}
+              Likes = {c.Likes}
+              meaning = {c.meaning}
+        />
+      });
+      }
+      
+      
+
 
   render() {
     return (
        this.state.isLogin ? 
       <div className="WholePage">
         <div className="NavArea">
-          <Navigation LogoutHandler={this.LogoutHandler}></Navigation>
+          <Navigation LogoutHandler={this.LogoutHandler}
+                      handleValueChange={this.handleValueChange}
+                      searchKeyword={this.state.searchKeyword}
+          ></Navigation>
         </div>
         <Row className="CardArea">
-        {this.state.cards ? this.state.cards.map((c, index) => {
-          return <Card
-                key={c.id}
-                word= {c.word}
-                writer = {c.writer}
-                date = {c.date}
-                Likes = {c.Likes}
-                meaning = {c.meaning}
-          />
-        }) : <Spinner className="spinner" color="primary" />}
+        {this.state.cards ? 
+          this.filteredComponents(this.state.cards)
+        : <Spinner className="spinner" color="primary" />}
         </Row>
         <Add writer={this.state.userName} addHandler={this.addHandler}></Add>
         <div className="FooterArea">

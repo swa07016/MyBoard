@@ -26,6 +26,7 @@ class Login extends React.Component {
 
     
       handleLoginSubmit = (e) => {
+        
         e.preventDefault();
         const url = '/login';
         let data = {
@@ -84,7 +85,7 @@ class Login extends React.Component {
                 }
               }
         }
-        
+
         xhr.open("POST", url, false);
         xhr.setRequestHeader("Content-type", "application/json");
         xhr.send(JSON.stringify(data));

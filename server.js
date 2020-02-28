@@ -72,6 +72,7 @@ app.post('/login', (req, res) => {
         if(rows.length) {
             const userCookie = {"flag" : "ok"};
             res.cookie("userCookie",userCookie);
+            res.cookie("userNameCookie",req.body.name);
             res.send({'l_name': l_name, 'code':'yes'}); 
         }
         else res.send({'l_name': l_name, 'code':'no'});

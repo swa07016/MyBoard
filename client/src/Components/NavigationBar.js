@@ -49,9 +49,10 @@ class Navigation extends React.Component {
             <NavbarText className="Search" >
               <Input
                 type="search"
-                name="search"
-                id="exampleSearch"
+                name="searchKeyword"
                 placeholder="Search"
+                value = {this.props.searchKeyword}
+                onChange={this.props.handleValueChange}
               />
             </NavbarText>
           </Collapse>
