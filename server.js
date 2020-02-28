@@ -62,6 +62,27 @@ app.post('/api/addCard', (req, res) => {
     })
 })
 
+// delete 처리
+app.post('/api/deleteCard', (req, res) => {
+    console.log(req.body);
+    let d_word = req.body.word;
+    let d_meaning = req.body.meaning;
+    let d_writer = req.body.writer;
+    let d_currentUser = req.body.currentUser;
+    let d_Likes = req.body.Likes;
+    let d_date = req.body.date;
+    const qry = `DELETE FROM CARD WHERE word='${d_word}' AND writer='${d_writer}' AND date='${d_date}' AND Likes='${d_Likes}' AND meaning='${d_meaning}'`;
+    if(d_writer !== d_currentUser) {
+        res.send({'code' : 'invalid'});
+    }
+    else {
+        connection.query(qry, (err, rows, fields) => {
+            res.send({'code':'ok'});
+        })
+    }
+})
+
+
 // login 처리
 app.post('/login', (req, res) => {
         

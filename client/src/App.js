@@ -51,6 +51,13 @@ class App extends React.Component {
     this.setState({cards:this.state.cards, userName:name, isLogin:!this.state.isLogin});
   }
 
+  stateRefresh = () => {
+    this.setState({cards:this.state.cards, userName:this.state.userName, isLogin:this.state.isLogin});
+    this.callApi()
+    .then(res => this.setState({cards: res}))
+    .catch(err => console.log(err))
+  }
+
   LogoutHandler = () => {
     console.log('gkgg');
     this.deleteCookie('userCookie');
@@ -79,6 +86,8 @@ class App extends React.Component {
       });
       return data.reverse().map((c, index) => {
         return <Card
+              stateRefresh={this.stateRefresh}
+              currentUser = {this.state.userName}
               key={c.id}
               word= {c.word}
               writer = {c.writer}
@@ -89,8 +98,6 @@ class App extends React.Component {
       });
       }
       
-      
-
 
   render() {
     return (
